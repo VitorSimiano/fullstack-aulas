@@ -1,0 +1,31 @@
+datasource db {
+  provider = "sqlite"
+}
+
+generator client {
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
+  moduleFormat = "cjs"
+}
+
+model Task {
+  id          Int     @id @default(autoincrement())
+  title       String
+  description String?
+  authorId    Int
+  author      User    @relation(fields: [authorId], references: [id])
+  tags        Tag[]
+}
+
+model User {
+  id    Int    @id @default(autoincrement())
+  email String @unique
+  name  String
+  tasks Task[]
+}
+
+model Tag {
+  id    Int    @id @default(autoincrement())
+  name  String @unique
+  tasks Task[]
+}
