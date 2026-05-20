@@ -3,9 +3,7 @@ datasource db {
 }
 
 generator client {
-  provider     = "prisma-client"
-  output       = "../src/generated/prisma"
-  moduleFormat = "cjs"
+  provider = "prisma-client-js"
 }
 
 model Task {
@@ -28,4 +26,11 @@ model Tag {
   id    Int    @id @default(autoincrement())
   name  String @unique
   tasks Task[]
+}
+
+model Message {
+  id        Int      @id @default(autoincrement())
+  username  String
+  text      String
+  createdAt DateTime @default(now())
 }
